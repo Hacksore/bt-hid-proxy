@@ -155,8 +155,13 @@ class Keystate(Enum):
 
 
 control_keys = {
-  'shift': False
+  ecodes.KEY_LEFTCTRL: False,
+  ecodes.KEY_LEFTSHIFT: False,
+  ecodes.KEY_LEFTALT: False,
+  ecodes.KEY_LEFTMETA: False
 }
+
+print(control_keys)
 
 control_chars = 0
 
@@ -165,18 +170,22 @@ for event in device.read_loop():
   if event.type != ecodes.EV_KEY:
     continue
   
-  if event.code == 42 and event.value in [Keystate.DOWN.value, Keystate.HOLD.value]:
-    print('Holding/pressed shift key', categorize(event))
-    control_keys["shift"] = True
-  elif event.code == 42 and event.value == Keystate.UP.value:
-    control_keys["shift"] = False
+  keycode = event.code
+  if keycode in control_keys.keys():
+    if not control_keys[keycode] and event.value in [Keystate.DOWN.value]:
+      print('pressed key', categorize(event))
+      control_keys[keycode] = True
+    elif control_keys[keycode] and event.value == Keystate.UP.value:
+      print('key up', categorize(event))
+      control_keys[keycode] = False
 
   # TODO: get all modifiers working
   if event.value == Keystate.UP.value:
-    if (control_keys["shift"]):
-      control_chars |= 1 << 1
-    else:
-      control_chars = 0
+    for i, (k, v) in enumerate(control_keys.items()):
+      if (control_keys[k]):
+        control_chars |= 1 << i
+      else:
+        control_chars = 0
 
     # send code
     send(control_chars, event.code)
