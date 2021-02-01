@@ -21,7 +21,7 @@ ENABLE_RPI_HID_PATH=/opt/enable-rpi-hid
 ENABLE_RPI_HID_DIR=$(dirname $ENABLE_RPI_HID_PATH)
 
 mkdir -p "$ENABLE_RPI_HID_DIR"
-wget https://raw.githubusercontent.com/mtlynch/ansible-role-key-mime-pi/master/files/enable-rpi-hid \
+wget https://gist.githubusercontent.com/Hacksore/9d17cc82429cec991836a7761ad64ff5/raw/fefe89792ff4e019a7b7d022d1bf9324d566d0ba/enable.sh \
   -O "$ENABLE_RPI_HID_PATH"
 chmod +x "$ENABLE_RPI_HID_PATH"
 
