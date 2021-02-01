@@ -14,4 +14,5 @@ Some helpful stuff I used for reference
 - https://mtlynch.io/key-mime-pi/
 - https://gitlab.com/dcro/quimby/-/blob/master/quimby-relay
 - https://github.com/gvalkov/python-evdev
+- https://github.com/mikerr/pihidproxy
 - https://www.raspberrypi.org/forums/viewtopic.php?t=138578
