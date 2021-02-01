@@ -10,5 +10,8 @@ TODO:
 
 
 # Credit
-Some helpful stuff was found in this project
+Some helpful stuff I used for reference
 - https://mtlynch.io/key-mime-pi/
+- https://gitlab.com/dcro/quimby/-/blob/master/quimby-relay
+- https://github.com/gvalkov/python-evdev
+- https://www.raspberrypi.org/forums/viewtopic.php?t=138578
