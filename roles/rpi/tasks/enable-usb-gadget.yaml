@@ -1,0 +1,77 @@
+- name: Setting facts
+  set_fact:
+    gadget_root: /sys/kernel/config/usb_gadget/g1
+    strings_dir: strings/0x409
+    functions_dir: functions/hid.usb0
+    config_dir: configs/c.1
+- name: Create directories
+  file:
+    path: "{{ gadget_root }}"
+    state: directory
+    mode: "0755"
+  with_items:
+   - gadget_root
+   - strings_dir
+   - functions_dir
+   - config_dir
+- name: Enable USB Gadget boot/config.txt
+  lineinfile:
+    path: "/boot/config.txt"
+    regexp: "dtoverlay=dwc2"
+    line: "dtoverlay=dwc2"
+    state: present
+- name: Enable /etc/modules
+  lineinfile:
+    path: "/etc/modules"
+    regexp: "dwc2"
+    line: "dwc2"
+    state: present
+- name: Run modprobe
+  shell: modprobe libcomposite
+- name: "Set idVendor"
+  lineinfile:
+    path: "{{ gadget_root }}/idVendor"
+    line: "0x1d6b"
+- name: "Set idProduct"
+  lineinfile:
+    path: "{{ gadget_root }}/idProduct"
+    line: "0x0104"
+- name: "Set bcdDevice"
+  lineinfile:
+    path: "{{ gadget_root }}/bcdDevice"
+    line: "0x0100"
+- name: "Set serialnumber"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ strings_dir }}/serialnumber"
+    line: "6b65796d696d6570690"
+    regex: "6b65796d696d6570690"
+    state: present
+- name: "Set manufacturer"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ strings_dir }}/manufacturer"
+    line: "keymimepi" # TODO: change
+    regex: "keymimepi"
+    state: present
+- name: "Set product"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ strings_dir }}/product"
+    line: "Generic USB Keyboard"
+- name: "Set protocol"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ functions_dir }}/protocol"
+    line: "1"
+- name: "Set subclass"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ functions_dir }}/subclass"
+    line: "0"
+- name: "Set report_length"
+  lineinfile:
+    path: "{{ gadget_root }}/{{ functions_dir }}/report_length"
+    line: "8"
+# - name: "Set report_desc"
+#   lineinfile:
+#     path: "{{ gadget_root }}/{{ functions_dir }}/report_desc"
+#     line: "\\x05\\x01\\x09\\x06\\xa1\\x01\\x05\\x07\\x19\\xe0\\x29\\xe7\\x15\\x00\\x25\\x01\\x75\\x01\\x95\\x08\\x81\\x02\\x95\\x01\\x75\\x08\\x81\\x03\\x95\\x05\\x75\\x01\\x05\\x08\\x19\\x01\\x29\\x05\\x91\\x02\\x95\\x01\\x75\\x03\\x91\\x03\\x95\\x06\\x75\\x08\\x15\\x00\\x25\\x65\\x05\\x07\\x19\\x00\\x29\\x65\\x81\\x00\\xc0"
+- name: systemd to reload configs
+  systemd:
+    daemon_reload: yes

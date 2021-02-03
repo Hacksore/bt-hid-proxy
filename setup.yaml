@@ -1,0 +1,9 @@
+#!/usr/bin/env ansible-playbook
+---
+- name: Raspberry Pi self configuration
+  hosts: localhost
+  user: pi
+  become: yes
+  connection: local
+  roles:
+    - rpi

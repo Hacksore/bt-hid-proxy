@@ -1,0 +1,15 @@
+- name: Install app to systemd
+  template:
+    src: etc/bt-hid-proxy.service.j2
+    dest: /etc/systemd/system
+    owner: root
+    group: root
+    mode: "0644"
+- name: systemd to reload configs
+  systemd:
+    daemon_reload: yes
+- name: systemd enable service
+  systemd:
+    name: bt-hid-proxy.service
+    state: started
+    enabled: yes
