@@ -6,7 +6,10 @@ The simple magic trick is to use a raspberry pi (4 or Zero) in gadget mode, mean
 
 # Instructions
 
-TODO:
+- Pair your keyboard to the pi
+- Run `sudo ./setup.sh`
+- Reboot your pi
+- Enjoy your new "wired" keyboard
 
 
 # Credit

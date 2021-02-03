@@ -32,3 +32,8 @@ sed -e "s@{{ key_mime_pi_initialize_hid_script_path }}@${ENABLE_RPI_HID_PATH}@g"
 
 systemctl daemon-reload
 systemctl enable usb-gadget.service
+
+# install/enable the python service
+sudo cp ./bt-hid-proxy.service /etc/systemd/system
+systemctl enable bt-hid-proxy.service
+systemctl daemon-reload

@@ -1,0 +1,13 @@
+[Unit]
+Description=BT HID PROXY
+
+[Service]
+User=pi
+ExecStart=/usr/bin/python /home/pi/bt-hid-proxy/app/main.py
+Restart=on-failure
+Type=notify
+StartLimitBurst=999
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=default.target
