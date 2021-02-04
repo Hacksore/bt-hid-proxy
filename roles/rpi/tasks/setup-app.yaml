@@ -1,7 +1,7 @@
 - name: Install app to systemd
   template:
     src: etc/bt-hid-proxy.service.j2
-    dest: /etc/systemd/system
+    dest: /etc/systemd/system/bt-hid-proxy.service
     owner: root
     group: root
     mode: "0644"

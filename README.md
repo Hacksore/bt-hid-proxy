@@ -5,8 +5,9 @@ Idea is to allow a bluetooth keyboard to communicate with a device that can't su
 The simple magic trick is to use a raspberry pi (4 or Zero) in gadget mode, meaninng it's physically plugged into the device via USB to do the keyboard emulation after getting instructions from the bluetooth keyboard thanks to `evdev`.
 
 ## Instructions
-
+- Run `git clone https://github.com/Hacksore/bt-hid-proxy.git` in the `pi` home directory
 - Pair your keyboard to the pi
+- Run `cd bt-hid-proxy`
 - Run `sudo apt-get install -y ansible && ./setup.yaml`
 - Enjoy your new "wired" keyboard
 

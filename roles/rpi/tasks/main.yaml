@@ -1,2 +1,2 @@
-# - include: enable-usb-gadget.yaml
+- include: enable-usb-gadget.yaml
 - include: setup-app.yaml

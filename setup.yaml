@@ -2,8 +2,7 @@
 ---
 - name: Raspberry Pi self configuration
   hosts: localhost
-  user: pi
   become: yes
-  connection: local
+  become_user: root
   roles:
     - rpi
